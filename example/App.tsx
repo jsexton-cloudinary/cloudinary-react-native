@@ -26,12 +26,12 @@ const cld = new Cloudinary({
   },
 });
 
+/* CHUNKED UPLOADS - UNTESTED */
+
 /* Cloudinary's front end SDKs don't support chunked uploads but are supported in the backend SDKs 
 // and you cand find more info here: https://cloudinary.com/documentation/upload_images#chunked_asset_upload
 // Also, for web applications you can use the Upload Widget which has chunked uploads right out of the box
 // and you can find more info here: https://cloudinary.com/documentation/upload_widget*/
-
-// Below is an example of manual chunked uploads but has been commented out as it hasn't been tested
 
 // const uploadFileInChunks = async (filePath: any, uploadPreset: any) => {
 //   try {
@@ -90,6 +90,8 @@ const cld = new Cloudinary({
 //     console.error('Error handling file upload:', error);
 //   }
 // };
+
+/* CHUNKED UPLOADS - UNTESTED */
 
 export default function App() {
   const videoPlayer = useRef<Video>(null);
