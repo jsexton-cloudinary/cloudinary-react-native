@@ -10,6 +10,7 @@ import { streamingProfile } from '@cloudinary/url-gen/actions/transcode';
 import { Video } from 'expo-av';
 import {} from 'cloudinary-react-native';
 import {upload} from 'cloudinary-react-native';
+import RNFetchBlob from 'rn-fetch-blob';
 
 const cld = new Cloudinary({
   cloud: {
@@ -23,6 +24,71 @@ const cld = new Cloudinary({
     secure: true,
   },
 });
+
+/* Cloudinary's front end SDKs don't support chunked uploads but are supported in the backend SDKs 
+// and you cand find more info here: https://cloudinary.com/documentation/upload_images#chunked_asset_upload
+// Also, for web applications you can use the Upload Widget which has chunked uploads right out of the box
+// and you can find more info here: https://cloudinary.com/documentation/upload_widget*/
+
+// Below is an example of manual chunked uploads but has been commented out as it hasn't been tested
+
+// const uploadFileInChunks = async (filePath: any, uploadPreset: any) => {
+//   try {
+//     const { size } = await RNFetchBlob.fs.stat(filePath);
+//     const chunkSize = 5 * 1024 * 1024; // 5 MB chunks
+//     let offset = 0;
+
+//     while (offset < size) {
+//       const end = Math.min(size, offset + chunkSize);
+//       const chunk = await RNFetchBlob.fs.readStream(filePath, 'base64', offset, end);
+//       const options = {
+//         upload_preset: uploadPreset,
+//         file: chunk.data,
+//         part: {
+//           index: Math.floor(offset / chunkSize) + 1,
+//           total: Math.ceil(size / chunkSize),
+//         },
+//       };
+
+//       await upload(cld, options);
+//       offset = end;
+//     }
+
+//     return { success: true };
+//   } catch (error) {
+//     console.error('Error uploading file in chunks:', error);
+//     return { success: false, error };
+//   }
+// };
+
+// const handleFileUpload = async () => {
+//   try {
+//     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+//     if (status !== 'granted') {
+//       alert('Permission to access media library is required!');
+//       return;
+//     }
+
+//     const result = await ImagePicker.launchImageLibraryAsync({
+//       mediaTypes: ImagePicker.MediaTypeOptions.All,
+//       allowsEditing: false,
+//       aspect: [4, 3],
+//       quality: 1,
+//     });
+
+//     if (!result.cancelled) {
+//       const { uri } = result;
+//       const uploadResult = await uploadFileInChunks(uri, 'your-upload-preset');
+//       if (uploadResult.success) {
+//         console.log('File uploaded successfully!');
+//       } else {
+//         console.error('Error uploading file:', uploadResult.error);
+//       }
+//     }
+//   } catch (error) {
+//     console.error('Error handling file upload:', error);
+//   }
+// };
 
 export default function App() {
   const videoPlayer = useRef<Video>(null);
