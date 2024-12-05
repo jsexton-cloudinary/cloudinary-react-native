@@ -28,11 +28,6 @@ const cld = new Cloudinary({
 
 /* CHUNKED UPLOADS - UNTESTED */
 
-/* Cloudinary's front end SDKs don't support chunked uploads but are supported in the backend SDKs 
-// and you cand find more info here: https://cloudinary.com/documentation/upload_images#chunked_asset_upload
-// Also, for web applications you can use the Upload Widget which has chunked uploads right out of the box
-// and you can find more info here: https://cloudinary.com/documentation/upload_widget*/
-
 // const uploadFileInChunks = async (filePath: any, uploadPreset: any) => {
 //   try {
 //     const { size } = await RNFetchBlob.fs.stat(filePath);
@@ -92,6 +87,69 @@ const cld = new Cloudinary({
 // };
 
 /* CHUNKED UPLOADS - UNTESTED */
+
+/* VIDEO TRANSCRIPTION AT TIME OF UPLOAD */
+
+// const uploadVideoWithTranscription = async (videoFilePath:any) => {
+//   try {
+//     const uploadResponse = await upload(cld, {
+//       file: videoFilePath,
+//       upload_preset: 'your-upload-preset',
+//       resource_type: 'video',
+//       eager: [
+//         {
+//           transformation: {
+//             width: 640,
+//             height: 360,
+//             crop: 'limit',
+//           },
+//           resource_type: 'video',
+//           format: 'mp4',
+//           public_id: 'my_transcoded_video',
+//         },
+//         {
+//           resource_type: 'video',
+//           format: 'vtt',
+//           public_id: 'my_video_transcript',
+//         },
+//       ],
+//     });
+
+//     console.log('Video uploaded successfully:', uploadResponse);
+//     return uploadResponse;
+//   } catch (error) {
+//     console.error('Error uploading video:', error);
+//     throw error;
+//   }
+// };
+
+// const handleVideoUpload = async () => {
+//   try {
+//     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+//     if (status !== 'granted') {
+//       alert('Permission to access media library is required!');
+//       return;
+//     }
+
+//     const result = await ImagePicker.launchImageLibraryAsync({
+//       mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+//       allowsEditing: false,
+//       aspect: [4, 3],
+//       quality: 1,
+//     });
+
+//     if (!result.cancelled) {
+//       const { uri } = result;
+//       const uploadResponse = await uploadVideoWithTranscription(uri);
+//       console.log('Video uploaded and transcribed:', uploadResponse);
+//     }
+//   } catch (error) {
+//     console.error('Error handling video upload:', error);
+//   }
+// };
+
+/* VIDEO TRANSCRIPTION AT TIME OF UPLOAD */
+
 
 export default function App() {
   const videoPlayer = useRef<Video>(null);
