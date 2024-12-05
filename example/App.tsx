@@ -11,6 +11,7 @@ import { Video } from 'expo-av';
 import {} from 'cloudinary-react-native';
 import {upload} from 'cloudinary-react-native';
 import RNFetchBlob from 'rn-fetch-blob';
+import ImagePicker from 'react-native-image-picker';
 
 const cld = new Cloudinary({
   cloud: {
