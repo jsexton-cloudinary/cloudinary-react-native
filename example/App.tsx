@@ -9,33 +9,39 @@ import React, { useRef } from 'react';
 import { streamingProfile } from '@cloudinary/url-gen/actions/transcode';
 import { Video } from 'expo-av';
 import {} from 'cloudinary-react-native';
+import {upload} from 'cloudinary-react-native';
 
 const cld = new Cloudinary({
   cloud: {
-    cloudName: 'demo',
+    // This cloudname is used for demonstration purposes only and should be replaced with your account info in the format below
+    cloudName: 'demo'
+    // cloudName: 'YOUR-CLOUD_NAME_HERE',
+    // apiKey: 'YOUR-API-KEY-HERE',
+    // apiSecret: 'YOUR-API-SECRET-HERE'
   },
   url: {
     secure: true,
   },
 });
+
 export default function App() {
   const videoPlayer = useRef<Video>(null);
   function createMyImage() {
     var myImage = cld
-      .image('sample')
-      .resize(scale().width(300))
-      .effect(cartoonify())
-      .roundCorners(max());
+    .image('sample')
+    .resize(scale().width(300))
+    .effect(cartoonify())
+    .roundCorners(max());
     return myImage;
   }
-
+  
   function createMyVideoObject() {
     const myVideo = cld
-      .video('sea_turtle.m3u8')
-      .transcode(streamingProfile('auto'));
+    .video('sea_turtle.m3u8')
+    .transcode(streamingProfile('auto'));
     return myVideo;
   }
-
+  
   return (
     <View style={styles.container}>
       <View>
